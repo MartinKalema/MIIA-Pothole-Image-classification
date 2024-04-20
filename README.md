@@ -12,9 +12,9 @@ The evaluation metric for this challenge is the Area Under the Curve.
 The label is the likelihood that the image contains a pothole. Values can be from 0 to 1.
 
 Your submission file should look like:
-'''
+```
 id                   label
 AEJGkTGsvGnwBVQ       .543254
 AEPaZSgFfneYkLS       0
 AEjDuKGztTuzjDC       1
-'''
+```
