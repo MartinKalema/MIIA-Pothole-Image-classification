@@ -14,3 +14,16 @@ try:
 except Exception as e:
     logger.exception(e)
     raise e
+
+STAGE_NAME = "Prepare Base Model Stage"
+
+try:
+    logger.info("*********************************\n")
+    logger.info(f">>>>>> {STAGE_NAME} started <<<<<<")
+    obj = PrepareBaseModelTrainingPipeline()
+    obj.main()
+    logger.info(
+        f">>>>>> {STAGE_NAME} completed <<<<<<<\n **********************************")
+except Exception as e:
+    logger.exception(e)
+    raise e
