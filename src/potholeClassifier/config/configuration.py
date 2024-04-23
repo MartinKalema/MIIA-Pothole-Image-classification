@@ -1,6 +1,6 @@
 from potholeClassifier.constants import *
 from potholeClassifier.utils.common import read_yaml, create_directories, save_json
-from potholeClassifier.entity.config_entity import DataIngestionConfig
+from potholeClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig
 import os
 
 class ConfigurationManager:
@@ -45,3 +45,24 @@ class ConfigurationManager:
             unzip_dir=config.unzip_dir
         )
         return data_ingestion_config
+    
+    def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
+        """Retrieves the configuration for preparing base models.
+
+        Returns:
+            PrepareBaseModelConfig: The configuration for preparing base models.
+        """
+        config = self.config.prepare_base_model
+        create_directories([config.root_dir])
+        prepare_base_model_config = PrepareBaseModelConfig(
+            root_dir=Path(config.root_dir),
+            base_model_path=Path(config.base_model_path),
+            updated_base_model_path=Path(config.updated_base_model_path),
+            params_image_size=self.params.IMAGE_SIZE,
+            params_learning_rate=self.params.LEARNING_RATE,
+            params_include_top=self.params.INCLUDE_TOP,
+            params_weights=self.params.WEIGHTS,
+            params_classes=self.params.CLASSES
+        )
+        return prepare_base_model_config
+    
