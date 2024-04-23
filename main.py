@@ -1,6 +1,6 @@
 from potholeClassifier import logger
 from potholeClassifier.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
-
+from potholeClassifier.pipeline.stage_02_prepare_base_model import PrepareBaseModelTrainingPipeline
 
 STAGE_NAME = "Data Ingestion Stage"
 
