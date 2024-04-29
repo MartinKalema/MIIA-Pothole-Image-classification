@@ -1,16 +1,13 @@
-import os
-import urllib.request as request
-from zipfile import ZipFile
-import tensorflow as tf
 from potholeClassifier.entity.config_entity import PrepareBaseModelConfig
 from pathlib import Path
-
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 
 class PrepareBaseModel:
     """Class for preparing base models.
 
-    This class provides methods for loading a base model, preparing a full model,
-    and saving a model to a specified path.
+    This class provides methods preparing a full model and saving it to a specified path.
 
     Attributes:
         config (PrepareBaseModelConfig): The configuration for preparing base models.
@@ -24,70 +21,58 @@ class PrepareBaseModel:
         """
         self.config = config
 
-    def get_base_model(self):
-        """Loads the base model and saves it to the specified path."""
-        self.model = tf.keras.applications.vgg16.VGG16(
-            input_shape=self.config.params_image_size,
-            weights=self.config.params_weights,
-            include_top=self.config.params_include_top
-        )
-
-        self.save_model(path=self.config.base_model_path, model=self.model)
-
     @staticmethod
-    def _prepare_full_model(model, classes, freeze_all, freeze_till, learning_rate):
+    def _prepare_full_model(conv_1_filters, conv_2_filters, conv_3_filters, conv_4_filters, dense_units, number_of_classes, image_size):
         """Prepares the full model by freezing specified layers and adding additional layers.
 
         Args:
-            model (tf.keras.Model): The base model to be prepared.
-            classes (int): The number of classes in the model.
-            freeze_all (bool): Whether to freeze all layers of the model.
-            freeze_till (int): The index of the last layer to freeze.
-            learning_rate (float): The learning rate for the model.
+            number_of_classes (int): The number of classes in the model.
+            conv_1_filters: Number of filters on the first convolutional layer
+            conv_2_filters: Number of filters on the second convolutional layer
+            conv_3_filters: Number of filters on the third convolutional layer
+            conv_4_filters: Number of filters on the fourth convolutional layer
+            dense_units: Number of neurons in the fully connected dense layer
+            image_size: Input shape of the model
 
         Returns:
             tf.keras.Model: The prepared full model.
         """
-        if freeze_all:
-            for layer in model.layers:
-                layer.trainable = False
-        elif (freeze_till is not None) and (freeze_till > 0):
-            for layer in model.layers[: -freeze_till]:
-                layer.trainable = False
+        full_model = Sequential([
+            Conv2D(conv_1_filters, (3, 3), activation='relu', input_shape=image_size),
+            MaxPooling2D((2, 2)),
+            Conv2D(conv_2_filters, (3, 3), activation='relu'),
+            MaxPooling2D((2, 2)),
+            Conv2D(conv_3_filters, (3, 3), activation='relu'),
+            MaxPooling2D((2, 2)),
+            Conv2D(conv_4_filters, (3, 3), activation='relu'),
+            MaxPooling2D((2, 2)),
+            Flatten(),
+            Dense(dense_units, activation='relu'),
+            Dense(number_of_classes, activation='softmax')
+        ])
 
-        flatten_in = tf.keras.layers.Flatten()(model.output)
-        prediction = tf.keras.layers.Dense(
-            units=classes,
-            activation="softmax"
-        )(flatten_in)
+        # Compile the model
+        full_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-        full_model = tf.keras.models.Model(
-            inputs=model.input,
-            outputs=prediction
-        )
-
-        full_model.compile(
-            optimizer=tf.keras.optimizers.SGD(learning_rate=learning_rate),
-            loss=tf.keras.losses.CategoricalCrossentropy(),
-            metrics=["accuracy"]
-        )
-
+        # Print the model summary
         full_model.summary()
         return full_model
     
-    def update_base_model(self):
+    def _save_base_model(self):
         self.full_model = self._prepare_full_model(
-            model=self.model,
-            classes=self.config.params_classes,
-            freeze_all=True,
-            freeze_till=None,
-            learning_rate=self.config.params_learning_rate
+            number_of_classes=self.config.params_classes,
+            dense_units=self.config.params_dense_units,
+            conv_1_filters=self.config.params_conv_1_filters,
+            conv_2_filters=self.config.params_conv_2_filters,
+            conv_3_filters=self.config.params_conv_3_filters,
+            conv_4_filters=self.config.params_conv_4_filters,
+            image_size=self.config.params_image_size
         )
 
-        self.save_model(path=self.config.updated_base_model_path, model=self.full_model)
+        self._save_model(path=self.config.base_model_path, model=self.full_model)
 
     @staticmethod
-    def save_model(path: Path, model: tf.keras.Model):
+    def _save_model(path: Path, model: tf.keras.Model):
         """Saves the model to the specified path.
 
         Args:

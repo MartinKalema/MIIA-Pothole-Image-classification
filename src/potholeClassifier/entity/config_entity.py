@@ -24,18 +24,20 @@ class PrepareBaseModelConfig:
     Attributes:
         root_dir (Path): The root directory where model-related files are stored.
         base_model_path (Path): The path where the base model will be saved.
-        updated_base_model_path (Path): The path where the updated base model will be saved.
         params_image_size (list): A list representing the image size parameters.
-        params_learning_rate (float): The learning rate parameter.
-        params_include_top (bool): Whether to include the top layer in the model.
-        params_weights (str): The weights to be used in the model.
         params_classes (int): The number of classes in the model.
+        params_dense_units (int): The number of neurons  in the fully connected layer
+        params_conv_1_filters (int): The number of filters in the first convolutional layer
+        params_conv_2_filters (int): The number of filters in the second convolutional layer
+        params_conv_3_filters (int): The number of filters in the third convolutional layer
+        params_conv_4_filters (int): The number of filters in the fourth convolutional layer
     """
     root_dir: Path
     base_model_path: Path
-    updated_base_model_path: Path
     params_image_size: list
-    params_learning_rate: float
-    params_include_top: bool
-    params_weights: str
     params_classes: int
+    params_dense_units: int
+    params_conv_1_filters: int
+    params_conv_2_filters: int
+    params_conv_3_filters: int
+    params_conv_4_filters: int

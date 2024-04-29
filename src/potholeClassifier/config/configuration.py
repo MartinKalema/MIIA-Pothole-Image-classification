@@ -46,23 +46,26 @@ class ConfigurationManager:
         )
         return data_ingestion_config
     
-    def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
+    def get_base_model_config(self) -> PrepareBaseModelConfig:
         """Retrieves the configuration for preparing base models.
 
         Returns:
             PrepareBaseModelConfig: The configuration for preparing base models.
         """
         config = self.config.prepare_base_model
+
         create_directories([config.root_dir])
-        prepare_base_model_config = PrepareBaseModelConfig(
+
+        base_model_config = PrepareBaseModelConfig(
             root_dir=Path(config.root_dir),
             base_model_path=Path(config.base_model_path),
-            updated_base_model_path=Path(config.updated_base_model_path),
             params_image_size=self.params.IMAGE_SIZE,
-            params_learning_rate=self.params.LEARNING_RATE,
-            params_include_top=self.params.INCLUDE_TOP,
-            params_weights=self.params.WEIGHTS,
+            params_dense_units=self.params.DENSE_UNITS,
+            params_conv_1_filters=self.params.CONV_1_FILTERS,
+            params_conv_2_filters=self.params.CONV_2_FILTERS,
+            params_conv_3_filters=self.params.CONV_3_FILTERS,
+            params_conv_4_filters=self.params.CONV_4_FILTERS,
             params_classes=self.params.CLASSES
         )
-        return prepare_base_model_config
-    
+
+        return base_model_config
