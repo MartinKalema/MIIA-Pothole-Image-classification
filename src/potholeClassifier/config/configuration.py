@@ -1,6 +1,6 @@
 from potholeClassifier.constants import *
 from potholeClassifier.utils.common import read_yaml, create_directories, save_json
-from potholeClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig
+from potholeClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig, TrainingConfig
 import os
 
 class ConfigurationManager:
@@ -69,3 +69,38 @@ class ConfigurationManager:
         )
 
         return base_model_config
+    
+    def get_training_config(self) -> TrainingConfig:
+        """
+        Retrieves the training configuration parameters and constructs a TrainingConfig object.
+
+        This method extracts the training configuration parameters from the overall configuration and parameters files,
+        constructs the path to the training data directory, creates necessary directories, and packages all the parameters
+        into a TrainingConfig object.
+
+        Returns:
+            TrainingConfig: An instance of TrainingConfig containing the training configuration parameters.
+
+        Raises:
+            ValueError: If any required configuration parameter is missing or invalid.
+        """
+        training = self.config.training
+        base_model_config = self.config.prepare_base_model
+        params = self.params
+
+        training_data = os.path.join(self.config.data_ingestion.unzip_dir, "dataset/train")
+
+        create_directories([Path(training.root_dir)])
+
+        training_config = TrainingConfig(
+            root_dir=Path(training.root_dir),
+            trained_model_path=Path(training.trained_model_path),
+            base_model_path=Path(base_model_config.base_model_path),
+            training_data=Path(training_data),
+            params_epochs=params.EPOCHS,
+            params_batch_size=params.BATCH_SIZE,
+            params_image_size=params.IMAGE_SIZE,
+            params_is_augmentation=params.AUGMENTATION
+        )
+
+        return training_config
