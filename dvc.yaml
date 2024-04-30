@@ -24,7 +24,7 @@ stages:
       - artifacts/base_model/base_model.h5
 
   training:
-    cmd: python mlflow.py && python src/potholeClassifier/pipeline/stage_03_model_training.py
+    cmd: python src/potholeClassifier/pipeline/stage_03_model_training.py
     deps:
       - src/potholeClassifier/pipeline/stage_03_model_training.py
       - config/config.yaml
@@ -39,7 +39,7 @@ stages:
       - artifacts/training/model.h5
 
   evaluation:
-    cmd: python src/potholeClassifier/pipeline/stage_04_model_evaluation.py
+    cmd: python mlflow.py && python src/potholeClassifier/pipeline/stage_04_model_evaluation.py
     deps:
       - src/potholeClassifier/pipeline/stage_04_model_evaluation.py
       - config/config.yaml
