@@ -1,0 +1,52 @@
+stages:
+  data_ingestion:
+    cmd: python src/potholeClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/potholeClassifier/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/dataset
+
+  prepare_base_model:
+    cmd: python src/potholeClassifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+      - src/potholeClassifier/pipeline/stage_02_prepare_base_model.py
+      - config/config.yaml
+    params:
+      - IMAGE_SIZE
+      - DENSE_UNITS
+      - CLASSES
+      - CONV_1_FILTERS
+      - CONV_2_FILTERS
+      - CONV_3_FILTERS
+      - CONV_4_FILTERS
+    outs:
+      - artifacts/base_model/base_model.h5
+
+  training:
+    cmd: python mlflow.py && python src/potholeClassifier/pipeline/stage_03_model_training.py
+    deps:
+      - src/potholeClassifier/pipeline/stage_03_model_training.py
+      - config/config.yaml
+      - artifacts/data_ingestion/dataset
+      - artifacts/base_model
+    params:
+      - LEARNING_RATE
+      - AUGMENTATION
+      - EPOCHS
+      - BATCH_SIZE
+    outs:
+      - artifacts/training/model.h5
+
+  evaluation:
+    cmd: python src/potholeClassifier/pipeline/stage_04_model_evaluation.py
+    deps:
+      - src/potholeClassifier/pipeline/stage_04_model_evaluation.py
+      - config/config.yaml
+      - artifacts/data_ingestion/dataset
+      - artifacts/training/model.h5
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+    metrics:
+      - scores.json
