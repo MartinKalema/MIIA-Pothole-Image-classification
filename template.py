@@ -32,6 +32,7 @@ list_of_files = [
     "requirements.txt",
     "setup.py",
     "main.py",
+    "dvc.yaml",
     "Dockerfile",
     "logs/logfile.log",
     "research/01_data_ingestion.ipynb",
