@@ -7,7 +7,7 @@ from potholeClassifier.utils.common import read_yaml
 import numpy as np
 from pathlib import Path
 
-class PotholeClassifier:
+class Classifier:
     def __init__(self, config_file_path):
         self.config_file_path = config_file_path
         self.config = read_yaml(self.config_file_path)
@@ -64,6 +64,6 @@ class StreamlitApp:
 
 if __name__ == "__main__":
     CONFIG_FILE_PATH = Path("config/config.yaml")
-    classifier = PotholeClassifier(CONFIG_FILE_PATH)
+    classifier = Classifier(CONFIG_FILE_PATH)
     app = StreamlitApp(classifier)
     app.run()
