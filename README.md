@@ -24,13 +24,13 @@ AEjDuKGztTuzjDC       1
 ## Pipeline
 
 This project uses the **MLOps Level 0: Manual Process**.
-<img src="mlops.png"/>
+<img src="static/mlops.png"/>
 
 ## Methodology
 
 We developed a custon CNN (1 input layer, 3 conv2D layers, a flatten layer, a dense layer & softmax layer) for this task. We used a keras-tuner to discover the best hyperparameters that gave us the best validation loss. The lowest validation loss, given compute constraints was 0.04 and the accuracy achieved was 97%.
 
-<img src="CNN workings.png"/>
+<img src="static/CNN workings.png"/>
 
 ## How to install
 
