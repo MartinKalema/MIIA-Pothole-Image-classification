@@ -1,10 +1,15 @@
 import subprocess
+from potholeClassifier.utils.common import read_yaml
+from pathlib import Path
+
+CONFIG_FILE_PATH = Path("config/config.yaml")
 
 def run_commands():
+    config = read_yaml(CONFIG_FILE_PATH)
     commands = [
-        "export MLFLOW_TRACKING_URI=https://dagshub.com/kalema3502/MIIA-Pothole-Image-classification.mlflow",
-        "export MLFLOW_TRACKING_USERNAME=kalema3502",
-        "export MLFLOW_TRACKING_PASSWORD=fb3845efcc3b2e46a4157b1d2c977a21e02dd16e",
+        f"export MLFLOW_TRACKING_URI={config.model_evaluation.mlflow_tracking_uri}",
+        f"export MLFLOW_TRACKING_USERNAME={config.model_evaluation.mlflow_tracking_username}",
+        f"export MLFLOW_TRACKING_PASSWORD={config.model_evaluation.mlflow_tracking_password}",
     ]
     
     for command in commands:

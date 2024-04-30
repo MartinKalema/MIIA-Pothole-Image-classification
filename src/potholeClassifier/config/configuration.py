@@ -1,6 +1,6 @@
 from potholeClassifier.constants import *
 from potholeClassifier.utils.common import read_yaml, create_directories, save_json
-from potholeClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig, TrainingConfig
+from potholeClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig, TrainingConfig, EvaluationConfig
 import os
 
 class ConfigurationManager:
@@ -104,3 +104,25 @@ class ConfigurationManager:
         )
 
         return training_config
+    
+    def get_evaluation_config(self) -> EvaluationConfig:
+        """
+        Get evaluation configuration for model evaluation.
+
+        Returns:
+            EvaluationConfig: A data class containing evaluation configuration parameters.
+
+        Raises:
+            ValueError: If any required configuration parameter is missing.
+        """
+
+        evaluation_config = EvaluationConfig(
+            path_of_model=self.config.training.trained_model_path,
+            training_data=os.path.join(self.config.data_ingestion.unzip_dir, "dataset/train"),
+            mlflow_uri=self.config.model_evaluation.mlflow_tracking_uri,
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+
+        return evaluation_config
