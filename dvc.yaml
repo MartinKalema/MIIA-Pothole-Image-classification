@@ -21,7 +21,7 @@ stages:
       - CONV_3_FILTERS
       - CONV_4_FILTERS
     outs:
-      - artifacts/base_model/base_model.h5
+      - artifacts/base_model
 
   training:
     cmd: python src/potholeClassifier/pipeline/stage_03_model_training.py
