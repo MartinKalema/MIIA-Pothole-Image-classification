@@ -21,6 +21,79 @@ AEPaZSgFfneYkLS       0
 AEjDuKGztTuzjDC       1
 ```
 
+## Folder Structure
+
+```
+config
+│   └── config.yaml
+├── Dockerfile
+├── dvc.yaml
+├── flaskapp.py
+├── logs
+│   └── logfile.log
+├── main.py
+├── mlflow.py
+├── params.yaml
+├── Procfile
+├── __pycache__
+│   └── mlflow.cpython-38.pyc
+├── README.md
+├── requirements.txt
+├── research
+│   ├── 01_data_ingestion.ipynb
+│   ├── 02_prepare_base_model.ipynb
+│   ├── 03_model_training.ipynb
+│   ├── 04_model_evaluation.ipynb
+│   └── trials.ipynb
+├── scores.json
+├── setup.py
+├── setup.sh
+├── src
+│   ├── potholeClassifier
+│   │   ├── components
+│   │   │   ├── data_ingestion.py
+│   │   │   ├── __init__.py
+│   │   │   ├── model_evaluation.py
+│   │   │   ├── model_training.py
+│   │   │   └── prepare_base_model.py
+│   │   ├── config
+│   │   │   ├── configuration.py
+│   │   │   └── __init__.py
+│   │   ├── constants
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       └── __init__.cpython-38.pyc
+│   │   ├── entity
+│   │   │   ├── config_entity.py
+│   │   │   └── __init__.py
+│   │   ├── __init__.py
+│   │   ├── pipeline
+│   │   │   ├── __init__.py
+│   │   │   ├── stage_01_data_ingestion.py
+│   │   │   ├── stage_02_prepare_base_model.py
+│   │   │   ├── stage_03_model_training.py
+│   │   │   ├── stage_04_model_evaluation.py
+│   │   │   └── stage_05_prediction.py
+│   │   ├── __pycache__
+│   │   │   └── __init__.cpython-38.pyc
+│   │   └── utils
+│   │       ├── common.py
+│   │       ├── _init__.py
+│   │       └── __pycache__
+│   │           └── common.cpython-38.pyc
+│   └── potholeClassifier.egg-info
+│       ├── dependency_links.txt
+│       ├── PKG-INFO
+│       ├── SOURCES.txt
+│       └── top_level.txt
+├── static
+│   ├── CNN workings.png
+│   └── mlops.png
+├── template.py
+└── templates
+    └── index.html
+```
+
 ## Pipeline
 
 This project uses the **MLOps Level 0: Manual Process**.
