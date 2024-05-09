@@ -4,7 +4,6 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 
-
 class PrepareBaseModel:
     """Class for preparing base models.
 
@@ -14,7 +13,7 @@ class PrepareBaseModel:
         config (PrepareBaseModelConfig): The configuration for preparing base models.
     """
 
-    def __init__(self, config: PrepareBaseModelConfig):
+    def __init__(self, config: PrepareBaseModelConfig) -> None:
         """Initializes the PrepareBaseModel.
 
         Args:
@@ -24,13 +23,13 @@ class PrepareBaseModel:
 
     @staticmethod
     def _prepare_full_model(
-            conv_1_filters,
-            conv_2_filters,
-            conv_3_filters,
-            conv_4_filters,
-            dense_units,
-            number_of_classes,
-            image_size):
+            conv_1_filters: int,
+            conv_2_filters: int,
+            conv_3_filters: int,
+            conv_4_filters: int,
+            dense_units: int,
+            number_of_classes: int,
+            image_size: tuple) -> tf.keras.Model:
         """Prepares the full model by freezing specified layers and adding additional layers.
 
         Args:
@@ -69,7 +68,15 @@ class PrepareBaseModel:
         full_model.summary()
         return full_model
 
-    def _save_base_model(self):
+    def _save_base_model(self) -> None:
+        """
+        Prepares a full model using the specified configuration parameters and saves it to the specified path.
+        This method prepares a full model by calling the `_prepare_full_model` method with the specified configuration parameters.
+        It then saves the prepared model to the specified path using the `_save_model` method.
+
+        Returns:
+            None
+        """
         self.full_model = self._prepare_full_model(
             number_of_classes=self.config.params_classes,
             dense_units=self.config.params_dense_units,
@@ -85,7 +92,7 @@ class PrepareBaseModel:
             model=self.full_model)
 
     @staticmethod
-    def _save_model(path: Path, model: tf.keras.Model):
+    def _save_model(path: Path, model: tf.keras.Model) -> None:
         """Saves the model to the specified path.
 
         Args:

@@ -9,14 +9,14 @@ class Training:
     """
     Class for training a machine learning model using configured parameters and data.
 
-    This class is responsible for loading the updated base model, preparing data generators for training and validation,
+    This class is responsible for loading the base model, preparing data generators for training and validation,
     and training the model using the provided data.
 
     Attributes:
         config (TrainingConfig): The configuration for training the model.
 
     Methods:
-        get_base_model(): Loads the updated base model for training.
+        get_base_model(): Loads the base model for training.
         train_valid_generator(): Prepares data generators for training and validation.
         train(): Trains and saves the best model.
 
