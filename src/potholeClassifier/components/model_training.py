@@ -22,7 +22,7 @@ class Training:
 
     """
 
-    def __init__(self, config: TrainingConfig):
+    def __init__(self, config: TrainingConfig) -> None:
         """
         Initializes the Training object with the provided configuration.
 
@@ -31,7 +31,7 @@ class Training:
         """
         self.config = config
 
-    def get_base_model(self):
+    def get_base_model(self) -> None:
         """
         Loads the updated base model for training.
 
@@ -41,14 +41,14 @@ class Training:
             self.config.base_model_path
         )
 
-    def train_valid_generator(self):
+    def train_valid_generator(self) -> None:
         """
         Prepares data generators for training and validation.
 
         This method prepares data generators for training and validation using the specified parameters
         in the training configuration. It applies data augmentation techniques if enabled.
         """
-        # Data generator and flow configuration parameters
+     
         datagenerator_kwargs = dict(
             rescale=1. / 255,
             validation_split=0.20
@@ -58,7 +58,6 @@ class Training:
             batch_size=self.config.params_batch_size,
         )
 
-        # Prepare training data generator with or without augmentation
         if self.config.params_is_augmentation:
             train_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(
                 rotation_range=40,
@@ -89,14 +88,12 @@ class Training:
             **dataflow_kwargs
         )
 
-    def train(self):
+    def train(self) -> None:
         """Train the model using the provided training generator and validation data.
 
         Args:
             callback_list (list): A list of callbacks to be used during training.
         """
-        # Calculate steps per epoch and validation steps based on generator
-        # samples and batch size
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
         self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
 
@@ -121,3 +118,6 @@ class Training:
             validation_steps=self.validation_steps,
             callbacks=callbacks,
             verbose=1)
+        
+        end = datetime.now()
+        print(f"Training time: {(end - start).total_seconds()} seconds")
