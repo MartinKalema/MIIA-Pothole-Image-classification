@@ -1,4 +1,3 @@
-import os
 import logging
 from pathlib import Path
 
@@ -85,5 +84,4 @@ list_of_files = [
 ]
 
 for filepath in list_of_files:
-    filepath = Path(filepath)
-    process_filepath(filepath)
+    process_filepath(Path(filepath))

@@ -5,6 +5,7 @@ from colorama import Fore, Style
 from dotenv import load_dotenv
 from typing import List
 
+
 load_dotenv()
 
 ROOT_DIR = os.getenv("ROOT_DIR")
