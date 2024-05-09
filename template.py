@@ -39,7 +39,9 @@ list_of_files = [
     "research/02_prepare_base_model.ipynb",
     "research/03_model_training.ipynb",
     "research/04_model_evaluation.ipynb",
-    "templates/index.html"
+    "templates/index.html",
+    'lint.py',
+    '.env'
 
 ]
 

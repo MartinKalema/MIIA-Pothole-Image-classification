@@ -10,6 +10,7 @@ import io
 
 app = Flask(__name__)
 
+
 class Classifier:
     def __init__(self, config_file_path):
         self.config_file_path = config_file_path
@@ -38,14 +39,18 @@ class Classifier:
     def classify_image(self, image_data):
         predictions = self.import_and_predict(image_data)
         score = tf.nn.softmax(predictions[0])
-        result_text = "This image most likely belongs to the <b>{}</b> class.".format(self.class_names[np.argmax(score)])
+        result_text = "This image most likely belongs to the <b>{}</b> class.".format(
+            self.class_names[np.argmax(score)])
         return result_text
 
+
 classifier = Classifier(Path("config/config.yaml"))
+
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
 
 @app.route('/classify', methods=['POST'])
 def classify():
@@ -56,6 +61,7 @@ def classify():
         return jsonify({'result': result_text})
     else:
         return jsonify({'error': 'No image file provided'})
+
 
 if __name__ == "__main__":
     app.run(debug=True)

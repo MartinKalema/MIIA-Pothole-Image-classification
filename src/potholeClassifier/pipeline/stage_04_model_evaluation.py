@@ -16,6 +16,7 @@ class EvaluationPipeline:
         evaluation.evaluation()
         evaluation.log_into_mlflow()
 
+
 if __name__ == '__main__':
     try:
         logger.info(f">>>>>> {STAGE_NAME} started <<<<<<")

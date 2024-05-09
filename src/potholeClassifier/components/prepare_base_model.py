@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 
+
 class PrepareBaseModel:
     """Class for preparing base models.
 
@@ -22,7 +23,14 @@ class PrepareBaseModel:
         self.config = config
 
     @staticmethod
-    def _prepare_full_model(conv_1_filters, conv_2_filters, conv_3_filters, conv_4_filters, dense_units, number_of_classes, image_size):
+    def _prepare_full_model(
+            conv_1_filters,
+            conv_2_filters,
+            conv_3_filters,
+            conv_4_filters,
+            dense_units,
+            number_of_classes,
+            image_size):
         """Prepares the full model by freezing specified layers and adding additional layers.
 
         Args:
@@ -52,12 +60,15 @@ class PrepareBaseModel:
         ])
 
         # Compile the model
-        full_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        full_model.compile(
+            optimizer='adam',
+            loss='categorical_crossentropy',
+            metrics=['accuracy'])
 
         # Print the model summary
         full_model.summary()
         return full_model
-    
+
     def _save_base_model(self):
         self.full_model = self._prepare_full_model(
             number_of_classes=self.config.params_classes,
@@ -69,7 +80,9 @@ class PrepareBaseModel:
             image_size=self.config.params_image_size
         )
 
-        self._save_model(path=self.config.base_model_path, model=self.full_model)
+        self._save_model(
+            path=self.config.base_model_path,
+            model=self.full_model)
 
     @staticmethod
     def _save_model(path: Path, model: tf.keras.Model):

@@ -1,18 +1,20 @@
 from potholeClassifier.constants import *
-from potholeClassifier.utils.common import read_yaml, create_directories, save_json
+from potholeClassifier.utils.common import read_yaml, create_directories
 from potholeClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig, TrainingConfig, EvaluationConfig
 import os
 
+
 class ConfigurationManager:
     """Class for managing configuration files and preparing base models.
-    
+
     This class handles the loading of configuration files and parameters,
     as well as the creation of directories necessary for preparing base models.
-    
+
     Attributes:
         config_filepath (str, optional): The filepath of the configuration file. Defaults to CONFIG_FILE_PATH.
         params_filepath (str, optional): The filepath of the parameters file. Defaults to PARAMS_FILE_PATH.
     """
+
     def __init__(
             self,
             config_filepath=CONFIG_FILE_PATH,
@@ -45,7 +47,7 @@ class ConfigurationManager:
             unzip_dir=config.unzip_dir
         )
         return data_ingestion_config
-    
+
     def get_base_model_config(self) -> PrepareBaseModelConfig:
         """Retrieves the configuration for preparing base models.
 
@@ -69,7 +71,7 @@ class ConfigurationManager:
         )
 
         return base_model_config
-    
+
     def get_training_config(self) -> TrainingConfig:
         """
         Retrieves the training configuration parameters and constructs a TrainingConfig object.
@@ -88,7 +90,9 @@ class ConfigurationManager:
         base_model_config = self.config.prepare_base_model
         params = self.params
 
-        training_data = os.path.join(self.config.data_ingestion.unzip_dir, "dataset/train")
+        training_data = os.path.join(
+            self.config.data_ingestion.unzip_dir,
+            "dataset/train")
 
         create_directories([Path(training.root_dir)])
 
@@ -104,7 +108,7 @@ class ConfigurationManager:
         )
 
         return training_config
-    
+
     def get_evaluation_config(self) -> EvaluationConfig:
         """
         Get evaluation configuration for model evaluation.
@@ -118,11 +122,12 @@ class ConfigurationManager:
 
         evaluation_config = EvaluationConfig(
             path_of_model=self.config.training.trained_model_path,
-            training_data=os.path.join(self.config.data_ingestion.unzip_dir, "dataset/train"),
+            training_data=os.path.join(
+                self.config.data_ingestion.unzip_dir,
+                "dataset/train"),
             mlflow_uri=self.config.model_evaluation.mlflow_tracking_uri,
             all_params=self.params,
             params_image_size=self.params.IMAGE_SIZE,
-            params_batch_size=self.params.BATCH_SIZE
-        )
+            params_batch_size=self.params.BATCH_SIZE)
 
         return evaluation_config

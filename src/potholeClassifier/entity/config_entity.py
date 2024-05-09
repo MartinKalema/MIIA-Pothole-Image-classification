@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+
 @dataclass(frozen=True)
 class DataIngestionConfig:
     """
@@ -17,10 +18,11 @@ class DataIngestionConfig:
     local_data_file: Path
     unzip_dir: Path
 
+
 @dataclass(frozen=True)
 class PrepareBaseModelConfig:
     """Configuration class for preparing base models.
-    
+
     Attributes:
         root_dir (Path): The root directory where model-related files are stored.
         base_model_path (Path): The path where the base model will be saved.
@@ -41,6 +43,7 @@ class PrepareBaseModelConfig:
     params_conv_2_filters: int
     params_conv_3_filters: int
     params_conv_4_filters: int
+
 
 @dataclass(frozen=True)
 class TrainingConfig:
@@ -65,10 +68,11 @@ class TrainingConfig:
     params_image_size: list
     params_is_augmentation: bool
 
+
 @dataclass(frozen=True)
 class EvaluationConfig:
     path_of_model: Path
-    training_data:Path
+    training_data: Path
     all_params: dict
     mlflow_uri: str
     params_image_size: list

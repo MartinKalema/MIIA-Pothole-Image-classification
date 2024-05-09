@@ -17,6 +17,7 @@ class TrainingPipeline:
         training.train_valid_generator()
         training.train()
 
+
 if __name__ == '__main__':
     try:
         logger.info(f">>>>>> {STAGE_NAME} started <<<<<<")

@@ -7,6 +7,7 @@ from potholeClassifier.utils.common import read_yaml
 import numpy as np
 from pathlib import Path
 
+
 class Classifier:
     def __init__(self, config_file_path):
         self.config_file_path = config_file_path
@@ -34,8 +35,10 @@ class Classifier:
     def classify_image(self, image):
         predictions = self.import_and_predict(image)
         score = tf.nn.softmax(predictions[0])
-        result_text = "This image most likely belongs to the <b>{}</b> class.".format(self.class_names[np.argmax(score)])
+        result_text = "This image most likely belongs to the <b>{}</b> class.".format(
+            self.class_names[np.argmax(score)])
         return result_text
+
 
 class StreamlitApp:
     def __init__(self, classifier):
@@ -43,7 +46,7 @@ class StreamlitApp:
 
     def run(self):
         st.markdown("## Pothole Image Classification", unsafe_allow_html=True)
-        
+
         with st.spinner('Model is being loaded..'):
             self.classifier.load_best_model()
 
@@ -52,15 +55,18 @@ class StreamlitApp:
         distresses are the primary cause due to poor subgrade conditions, lack of subsurface drainage, and excessive rainfalls. This prediction service classifies images to find whether they have potholes or not.
         """)
 
-        file = st.file_uploader("Please upload the image file", type=["jpg", "png"])
+        file = st.file_uploader(
+            "Please upload the image file", type=[
+                "jpg", "png"])
 
         if file is None:
             st.text("File has not been uploaded yet.")
-        else: 
+        else:
             image = Image.open(file)
             st.image(image, use_column_width=True)
             result_text = self.classifier.classify_image(image)
             st.markdown(result_text, unsafe_allow_html=True)
+
 
 if __name__ == "__main__":
     CONFIG_FILE_PATH = Path("config/config.yaml")
