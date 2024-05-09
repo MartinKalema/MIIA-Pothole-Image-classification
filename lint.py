@@ -11,6 +11,15 @@ ROOT_DIR = os.getenv("ROOT_DIR")
 
 
 def get_all_python_files(directory: str) -> List[str]:
+    """
+    Get all Python files within a given directory and its subdirectories.
+
+    Args:
+        directory (str): The directory to search for Python files.
+
+    Returns:
+        List[str]: A list of file paths to Python files.
+    """
     python_files = []
     for root, _, files in os.walk(directory):
         for file in files:
@@ -20,6 +29,15 @@ def get_all_python_files(directory: str) -> List[str]:
 
 
 def execute_command(command: List[str]) -> subprocess.CompletedProcess:
+    """
+    Execute a command in the shell.
+
+    Args:
+        command (List[str]): The command and its arguments to execute.
+
+    Returns:
+        subprocess.CompletedProcess: The completed subprocess.
+    """
     try:
         process = subprocess.run(command, capture_output=True, text=True)
         return process
@@ -29,6 +47,12 @@ def execute_command(command: List[str]) -> subprocess.CompletedProcess:
 
 
 def lint_python_file(file: str) -> None:
+    """
+    Lint a Python file using autopep8 and flake8.
+
+    Args:
+        file (str): Path to the Python file to lint.
+    """
     autopep8_process = execute_command(
         ['autopep8', '--in-place', '--aggressive', '--aggressive', file])
     if autopep8_process.returncode != 0:
@@ -46,6 +70,9 @@ def lint_python_file(file: str) -> None:
 
 
 def main():
+    """
+    Main function to lint all Python files in the project directory.
+    """
     project_directory = ROOT_DIR
     all_python_files = get_all_python_files(project_directory)
     for file in all_python_files:
