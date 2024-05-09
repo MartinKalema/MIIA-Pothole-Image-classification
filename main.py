@@ -6,7 +6,8 @@ from potholeClassifier.pipeline.stage_04_model_evaluation import EvaluationPipel
 
 logger = logging.getLogger('potholeClassifierLogger')
 
-def execute_pipeline_stage(stage_name: str, pipeline_obj):
+
+def execute_pipeline_stage(stage_name: str, pipeline_obj) -> None:
     """
     Execute a specific pipeline stage.
 
@@ -22,6 +23,7 @@ def execute_pipeline_stage(stage_name: str, pipeline_obj):
     except Exception as e:
         logger.exception(e)
         raise e
+
 
 if __name__ == "__main__":
     STAGE_NAME = "DATA INGESTION"
