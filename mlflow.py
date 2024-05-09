@@ -5,8 +5,23 @@ from pathlib import Path
 CONFIG_FILE_PATH = Path("config/config.yaml")
 
 
-def run_commands():
-    config = read_yaml(CONFIG_FILE_PATH)
+def read_config() -> dict:
+    """
+    Read the configuration from the YAML file.
+
+    Returns:
+        dict: Configuration parameters.
+    """
+    return read_yaml(CONFIG_FILE_PATH)
+
+
+def set_mlflow_environment_variables(config: dict) -> None:
+    """
+    Set MLflow environment variables based on the configuration.
+
+    Args:
+        config (dict): Configuration parameters.
+    """
     commands = [
         f"export MLFLOW_TRACKING_URI={config.model_evaluation.mlflow_tracking_uri}",
         f"export MLFLOW_TRACKING_USERNAME={config.model_evaluation.mlflow_tracking_username}",
@@ -14,8 +29,12 @@ def run_commands():
     ]
 
     for command in commands:
-        subprocess.run(command, shell=True)
+        try:
+            subprocess.run(command, shell=True, check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error running command: {e}")
 
 
 if __name__ == "__main__":
-    run_commands()
+    config = read_config()
+    set_mlflow_environment_variables(config)

@@ -1,10 +1,50 @@
 import os
-from pathlib import Path
 import logging
+from pathlib import Path
 
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(levelname)s %(asctime)s %(filename)s]: %(message)s:')
 
 project_name = "potholeClassifier"
+
+
+def create_directories(filepath: Path) -> None:
+    """
+    Create directories if they don't exist.
+
+    Args:
+        filepath (Path): Path to the file or directory.
+    """
+    filedir = filepath.parent
+    if filedir != Path(""):
+        filedir.mkdir(parents=True, exist_ok=True)
+        logging.info(f"Creating directory: {filedir}")
+
+
+def create_empty_file(filepath: Path) -> None:
+    """
+    Create an empty file if it doesn't exist or has zero size.
+
+    Args:
+        filepath (Path): Path to the file.
+    """
+    if not filepath.exists() or filepath.stat().st_size == 0:
+        with open(filepath, 'w') as f:
+            pass
+        logging.info(f"Creating empty file: {filepath}")
+
+
+def process_filepath(filepath: Path) -> None:
+    """
+    Process a file path by creating directories and empty files.
+
+    Args:
+        filepath (Path): Path to the file.
+    """
+    create_directories(filepath)
+    create_empty_file(filepath)
+
 
 list_of_files = [
     ".github/workflows/.gitkeep",
@@ -42,22 +82,8 @@ list_of_files = [
     "templates/index.html",
     'lint.py',
     '.env'
-
 ]
 
 for filepath in list_of_files:
     filepath = Path(filepath)
-
-    filedir, filename = os.path.split(filepath)
-
-    if filedir != "":
-        os.makedirs(filedir, exist_ok=True)
-        logging.info(f"Creating directory;{filedir} for the file {filename}")
-
-    if (not os.path.exists(filepath)) or (os.path.getsize(filepath) == 0):
-        with open(filepath, 'w') as f:
-            pass
-            logging.info(f"Creating empty file: {filepath}")
-
-    else:
-        logging.info(f"{filename} already exists")
+    process_filepath(filepath)
