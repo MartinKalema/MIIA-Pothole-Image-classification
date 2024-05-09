@@ -4,7 +4,13 @@ import logging.config
 from datetime import datetime
 
 
-def get_log_file_path():
+def get_log_file_path() -> str:
+    """
+    Get the file path for the log file.
+
+    Returns:
+        str: File path for the log file.
+    """
     log_dir = "logs"
     os.makedirs(log_dir, exist_ok=True)
     return os.path.join(
