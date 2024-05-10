@@ -6,10 +6,23 @@ STAGE_NAME = "Model Training Stage"
 
 
 class TrainingPipeline:
-    def __init__(self):
-        pass
+    """
+    Class representing the pipeline for model training.
 
-    def main(self):
+    This class orchestrates the model training pipeline by initializing the required
+    components and executing the necessary steps.
+
+    Methods:
+        main: Main method to execute the model training pipeline.
+    """
+
+    def main(self) -> None:
+        """
+        Executes the main steps of the model training pipeline.
+
+        Initializes the configuration manager, retrieves training configuration,
+        prepares the training data, trains the model, and saves the trained model.
+        """
         config = ConfigurationManager()
         training_config = config.get_training_config()
         training = Training(config=training_config)
@@ -24,7 +37,7 @@ if __name__ == '__main__':
         obj = TrainingPipeline()
         obj.main()
         logger.info(
-            f">>>>>> {STAGE_NAME} completed <<<<<<<\n\n**********************************")
+            f">>>>>> {STAGE_NAME} completed <<<<<<<\n\n\n")
     except Exception as e:
         logger.exception(e)
         raise e
