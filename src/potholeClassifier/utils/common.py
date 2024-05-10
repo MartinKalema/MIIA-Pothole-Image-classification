@@ -37,7 +37,7 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
 
 
 @ensure_annotations
-def create_directories(path_to_directories: list, verbose=True):
+def create_directories(path_to_directories: list, verbose=True) -> None:
     """Create directories specified in the list.
 
     Args:
@@ -51,7 +51,7 @@ def create_directories(path_to_directories: list, verbose=True):
 
 
 @ensure_annotations
-def save_json(path: Path, data: dict):
+def save_json(path: Path, data: dict) -> None:
     """Save JSON data to a file.
 
     Args:
@@ -100,7 +100,7 @@ def load_json(path: Path) -> ConfigBox:
 
 
 @ensure_annotations
-def save_bin(data: Any, path: Path):
+def save_bin(data: Any, path: Path) -> None:
     """Save file as binary
 
     Args:
@@ -153,7 +153,7 @@ def get_size(path: Path) -> str:
     return f"~{size_in_kb} KB"
 
 
-def decodeImage(imageString, fileName):
+def decodeImage(imageString, fileName) -> None:
     """
     Decode a base64-encoded image string and save it to a file.
 
@@ -170,7 +170,7 @@ def decodeImage(imageString, fileName):
         f.close()
 
 
-def encodeImageIntoBase64(imagePath):
+def encodeImageIntoBase64(imagePath) -> bytes:
     """Encode an image file into base64 format.
 
     Args:
