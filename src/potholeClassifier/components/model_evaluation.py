@@ -23,15 +23,24 @@ class Evaluation:
 
         Args:
             config (EvaluationConfig): Configuration object containing evaluation parameters.
+            
+        Returns: 
+            None
         """
         self.config = config
 
-    def valid_generator(self) -> None:
+    def _validation_generator(self) -> None:
         """
         Prepares data generators for validation.
 
         Prepares data generators for validation using the specified parameters in the configuration.
         Applies data augmentation techniques if enabled.
+
+        Args:
+            None
+
+        Returns: 
+            None
         """
         datagenerator_kwargs = dict(
             rescale=1. / 255,
@@ -42,11 +51,11 @@ class Evaluation:
             batch_size=self.config.params_batch_size,
         )
 
-        valid_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(
+        validation_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(
             **datagenerator_kwargs
         )
 
-        self.valid_generator = valid_datagenerator.flow_from_directory(
+        self.validation_data = validation_datagenerator.flow_from_directory(
             directory=self.config.training_data,
             subset='validation',
             shuffle=True,
@@ -55,7 +64,7 @@ class Evaluation:
         )
 
     @staticmethod
-    def load_model(path: Path) -> tf.keras.Model:
+    def _load_model(path: Path) -> tf.keras.Model:
         """
         Loads a trained model from the specified path.
 
@@ -66,26 +75,46 @@ class Evaluation:
             tf.keras.Model: Loaded machine learning model.
         """
         return tf.keras.models.load_model(path)
-
-    def evaluation(self) -> None:
-        """
-        Performs evaluation of the loaded model using validation data.
-        """
-        self.model = self.load_model(self.config.path_of_model)
-        self.valid_generator()
-        self.score = self.model.evaluate(self.valid_generator)
-        self.save_score()
-
-    def save_score(self) -> None:
+    
+    def _save_score(self) -> None:
         """
         Saves the evaluation score to a JSON file.
+
+        Args:
+            None
+
+        Returns: 
+            None
         """
         scores = {"loss": self.score[0], "accuracy": self.score[1]}
         save_json(path=Path("scores.json"), data=scores)
 
+
+    def evaluation(self) -> None:
+        """
+        Performs evaluation of the loaded model using validation data.
+
+        Args:
+            None
+
+        Returns: 
+            None
+        """
+        self.model = self.load_model(self.config.path_of_model)
+        self._validation_generator()
+        self.score = self.model.evaluate(self.validation_data)
+        self._save_score()
+
+    
     def log_into_mlflow(self) -> None:
         """
         Logs evaluation metrics and the model into MLflow.
+
+        Args:
+            None
+
+        Returns: 
+            None
         """
         mlflow.set_registry_uri(self.config.mlflow_uri)
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme

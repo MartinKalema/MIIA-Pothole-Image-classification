@@ -1,5 +1,5 @@
 import pytest
-from potholeClassifier.utils.common import * 
+from potholeClassifier.utils.common import *
 from potholeClassifier.constants import *
 from box import ConfigBox
 
@@ -7,6 +7,7 @@ from box import ConfigBox
 def test_read_yaml_valid_file() -> None:
     result = read_yaml(CONFIG_FILE_PATH)
     assert isinstance(result, ConfigBox)
+
 
 def test_read_yaml_nonexistent_file() -> None:
     with pytest.raises(FileNotFoundError):

@@ -26,7 +26,7 @@ class PrepareBaseModelPipeline:
         config = ConfigurationManager()
         base_model_config = config.get_base_model_config()
         base_model = PrepareBaseModel(config=base_model_config)
-        base_model._save_base_model()
+        base_model.save_base_model()
 
 
 if __name__ == '__main__':

@@ -69,7 +69,17 @@ class PrepareBaseModel:
         full_model.summary()
         return full_model
 
-    def _save_base_model(self) -> None:
+    @staticmethod
+    def _save_model(path: Path, model: tf.keras.Model) -> None:
+        """Saves the model to the specified path.
+
+        Args:
+            path (Path): The path where the model will be saved.
+            model (tf.keras.Model): The model to be saved.
+        """
+        model.save(path)
+
+    def save_base_model(self) -> None:
         """
         Prepares a full model using the specified configuration parameters and saves it to the specified path.
         This method prepares a full model by calling the `_prepare_full_model` method with the specified configuration parameters.
@@ -91,13 +101,3 @@ class PrepareBaseModel:
         self._save_model(
             path=self.config.base_model_path,
             model=self.full_model)
-
-    @staticmethod
-    def _save_model(path: Path, model: tf.keras.Model) -> None:
-        """Saves the model to the specified path.
-
-        Args:
-            path (Path): The path where the model will be saved.
-            model (tf.keras.Model): The model to be saved.
-        """
-        model.save(path)
