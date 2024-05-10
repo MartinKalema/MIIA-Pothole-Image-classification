@@ -19,6 +19,9 @@ class PrepareBaseModel:
 
         Args:
             config (PrepareBaseModelConfig): The configuration for preparing base models.
+
+        Returns: 
+            None
         """
         self.config = config
 
@@ -76,6 +79,9 @@ class PrepareBaseModel:
         Args:
             path (Path): The path where the model will be saved.
             model (tf.keras.Model): The model to be saved.
+       
+        Returns: 
+            None
         """
         model.save(path)
 
@@ -84,6 +90,9 @@ class PrepareBaseModel:
         Prepares a full model using the specified configuration parameters and saves it to the specified path.
         This method prepares a full model by calling the `_prepare_full_model` method with the specified configuration parameters.
         It then saves the prepared model to the specified path using the `_save_model` method.
+
+        Args:
+            None
 
         Returns:
             None

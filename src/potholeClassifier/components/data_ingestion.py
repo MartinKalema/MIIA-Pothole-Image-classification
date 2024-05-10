@@ -12,11 +12,17 @@ class DataIngestion:
 
         Args:
             config (DataIngestionConfig): Configuration object for data ingestion.
+
+        Returns: 
+            None
         """
         self.config = config
 
     def download_file(self) -> str:
         """Fetch data from a URL.
+
+        Args:
+            None
 
         Returns:
             str: The path of the downloaded file.
@@ -50,6 +56,9 @@ class DataIngestion:
 
             This method extracts the contents of a zip file specified in the configuration
             to the directory specified in the configuration.
+
+            Args:
+                None
 
             Returns:
                 str: The path of the extracted directory.

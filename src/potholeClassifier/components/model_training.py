@@ -28,6 +28,9 @@ class Training:
 
         Args:
             config (TrainingConfig): The configuration for training the model.
+
+        Returns: 
+            None
         """
         self.config = config
 
@@ -36,6 +39,12 @@ class Training:
         Loads the updated base model for training.
 
         This method loads the updated base model from the specified path in the training configuration.
+
+        Args:
+            None
+
+        Returns: 
+            None
         """
         self.model = tf.keras.models.load_model(
             self.config.base_model_path
@@ -47,6 +56,12 @@ class Training:
 
         This method prepares data generators for training and validation using the specified parameters
         in the training configuration. It applies data augmentation techniques if enabled.
+
+        Args:
+            None
+
+        Returns: 
+            None
         """
 
         datagenerator_kwargs = dict(
@@ -93,6 +108,9 @@ class Training:
 
         Args:
             callback_list (list): A list of callbacks to be used during training.
+
+        Returns: 
+            None
         """
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
         self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
