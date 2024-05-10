@@ -184,6 +184,14 @@ To view the pipeline structure, use the command below
 dvc dag
 ```
 
+## Tests
+
+To run the unit tests, use the command below
+
+```python
+pytest test/test_file_name.py
+```
+
 ## AWS CI/CD Deployment with Github Actions
 
 - Login to the AWS console
