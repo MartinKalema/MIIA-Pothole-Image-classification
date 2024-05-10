@@ -25,7 +25,6 @@ class PrepareBaseModel:
         """
         self.config = config
 
-    @staticmethod
     def _prepare_full_model(
             conv_1_filters: int,
             conv_2_filters: int,
