@@ -1,5 +1,5 @@
 import logging
-from potholeClassifier.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
+from potholeClassifier.pipeline.stage_01_data_ingestion import DataIngestionPipeline
 from potholeClassifier.pipeline.stage_02_prepare_base_model import PrepareBaseModelPipeline
 from potholeClassifier.pipeline.stage_03_model_training import TrainingPipeline
 from potholeClassifier.pipeline.stage_04_model_evaluation import EvaluationPipeline
@@ -27,7 +27,7 @@ def execute_pipeline_stage(stage_name: str, pipeline_obj) -> None:
 
 if __name__ == "__main__":
     STAGE_NAME = "DATA INGESTION"
-    data_ingestion = DataIngestionTrainingPipeline()
+    data_ingestion = DataIngestionPipeline()
     execute_pipeline_stage(STAGE_NAME, data_ingestion)
 
     STAGE_NAME = "PREPARING BASE MODEL"
@@ -41,3 +41,6 @@ if __name__ == "__main__":
     STAGE_NAME = "MODEL EVALUATION"
     obj = EvaluationPipeline()
     execute_pipeline_stage(STAGE_NAME, obj)
+
+
+# THIS WILL BE USELESS ONCE DVC IS INTEGRATED

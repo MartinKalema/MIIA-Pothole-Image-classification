@@ -117,7 +117,7 @@ Create a conda environment after opening the repository and activate it
 
 ```
 conda create -n classifier python=3.8 -y
-conda activate kidney
+conda activate classifier
 ```
 
 Install the requirements

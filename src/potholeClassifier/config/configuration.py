@@ -18,7 +18,7 @@ class ConfigurationManager:
     def __init__(
             self,
             config_filepath=CONFIG_FILE_PATH,
-            params_filepath=PARAMS_FILE_PATH):
+            params_filepath=PARAMS_FILE_PATH) -> None:
         """Initializes the ConfigurationManager.
 
         Args:
