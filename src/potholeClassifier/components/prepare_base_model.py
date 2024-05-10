@@ -33,7 +33,7 @@ class PrepareBaseModel:
             dense_units: int,
             number_of_classes: int,
             image_size: tuple) -> tf.keras.Model:
-        """Prepares the full model by freezing specified layers and adding additional layers.
+        """Prepares the full model from the specified model configuration/architecture.
 
         Args:
             number_of_classes (int): The number of classes in the model.
