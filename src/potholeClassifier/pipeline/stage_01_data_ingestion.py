@@ -15,7 +15,7 @@ class DataIngestionPipeline:
     Methods:
         main: Main method to execute the data ingestion pipeline.
     """
-    
+
     def main(self) -> None:
         """
         Executes the main steps of the data ingestion pipeline.

@@ -48,7 +48,7 @@ class Training:
         This method prepares data generators for training and validation using the specified parameters
         in the training configuration. It applies data augmentation techniques if enabled.
         """
-     
+
         datagenerator_kwargs = dict(
             rescale=1. / 255,
             validation_split=0.20
@@ -118,6 +118,6 @@ class Training:
             validation_steps=self.validation_steps,
             callbacks=callbacks,
             verbose=1)
-        
+
         end = datetime.now()
         print(f"Training time: {(end - start).total_seconds()} seconds")

@@ -1,10 +1,14 @@
 import os
 import subprocess
 from potholeClassifier import logger
+import logging
 from colorama import Fore, Style
 from dotenv import load_dotenv
 from typing import List
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(levelname)s %(asctime)s %(filename)s]: %(message)s:')
 
 load_dotenv()
 
@@ -63,11 +67,11 @@ def lint_python_file(file: str) -> None:
 
     flake8_process = execute_command(['flake8', file])
     if flake8_process.returncode != 0:
-        logger.error(f"Flake8 found errors in file: {file}")
-        logger.error(flake8_process.stdout)
+        logger.warning(f"Flake8 found errors in file: {file}")
+        logger.warning(flake8_process.stdout)
         print(f"{Fore.RED}{flake8_process.stdout}{Style.RESET_ALL}")
     else:
-        print(f"Linted file: {file}")
+        logger.info(f"Linted file: {file}")
 
 
 def main():
