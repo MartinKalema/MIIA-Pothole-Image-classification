@@ -194,6 +194,8 @@ pytest test/test_file_name.py
 
 ## AWS CI/CD Deployment with Github Actions
 
+<img src="static/deployment.png"/>
+
 - Login to the AWS console
 - Create an IAM user for deployment
 - The user should have EC2 & ECR access. The deployment steps are mentioned below,

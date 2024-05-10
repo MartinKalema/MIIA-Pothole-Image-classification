@@ -12,7 +12,7 @@ prepare_base_model:
 
 training:
   root_dir: artifacts/training
-  trained_model_path: artifacts/training/model.h5
+  trained_model_path: model/model.h5
 
 model_evaluation:
   mlflow_tracking_uri: https://dagshub.com/kalema3502/MIIA-Pothole-Image-classification.mlflow
