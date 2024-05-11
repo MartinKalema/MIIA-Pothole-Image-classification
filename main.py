@@ -7,7 +7,7 @@ from potholeClassifier.pipeline.stage_04_model_evaluation import EvaluationPipel
 logger = logging.getLogger('potholeClassifierLogger')
 
 
-def execute_pipeline_stage(stage_name: str, pipeline_obj) -> None:
+def execute_pipeline_stage(stage_name: str, pipeline_obj: object) -> None:
     """
     Execute a specific pipeline stage.
 
