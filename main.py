@@ -14,6 +14,9 @@ def execute_pipeline_stage(stage_name: str, pipeline_obj: object) -> None:
     Args:
         stage_name (str): The name of the pipeline stage.
         pipeline_obj: The pipeline object to execute.
+
+    Returns:
+        None
     """
     try:
         logger.info(f">>>>>> {stage_name} STARTED <<<<<<")
@@ -42,5 +45,3 @@ if __name__ == "__main__":
     obj = EvaluationPipeline()
     execute_pipeline_stage(STAGE_NAME, obj)
 
-
-# THIS WILL BE USELESS ONCE DVC IS INTEGRATED

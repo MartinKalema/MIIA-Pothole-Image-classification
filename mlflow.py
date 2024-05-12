@@ -21,6 +21,9 @@ def set_mlflow_environment_variables(config: dict) -> None:
 
     Args:
         config (dict): Configuration parameters.
+
+    Returns:
+        None
     """
     commands = [
         f"export MLFLOW_TRACKING_URI={config.model_evaluation.mlflow_tracking_uri}",
