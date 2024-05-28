@@ -4,6 +4,7 @@ from potholeClassifier.constants import *
 from box import ConfigBox
 import io
 import tempfile
+import os
 
 
 def test_read_yaml_valid_file() -> None:
@@ -19,7 +20,7 @@ def test_read_yaml_valid_file() -> None:
     The function should return an object of type ConfigBox.
 
     """
-    result = read_yaml(CONFIG_FILE_PATH)
+    result = read_yaml(Path('../config/config.yaml'))
     assert isinstance(result, ConfigBox)
 
 
