@@ -92,7 +92,10 @@ class StreamlitApp:
         """)
 
     def run(self) -> None:
-        """Run the app"""
+        """
+        Run the app
+        
+        """
 
         self.load_model()
         self.display_intro()

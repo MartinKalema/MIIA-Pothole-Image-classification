@@ -20,7 +20,7 @@ class PrepareBaseModel:
         Args:
             config (PrepareBaseModelConfig): The configuration for preparing base models.
 
-        Returns: 
+        Returns:
             None
         """
         self.config = config
@@ -78,8 +78,8 @@ class PrepareBaseModel:
         Args:
             path (Path): The path where the model will be saved.
             model (tf.keras.Model): The model to be saved.
-       
-        Returns: 
+
+        Returns:
             None
         """
         model.save(path)

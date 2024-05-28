@@ -9,6 +9,8 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 import base64
+from io import BytesIO
+from PIL import Image
 
 
 @ensure_annotations

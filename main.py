@@ -44,4 +44,3 @@ if __name__ == "__main__":
     STAGE_NAME = "MODEL EVALUATION"
     obj = EvaluationPipeline()
     execute_pipeline_stage(STAGE_NAME, obj)
-

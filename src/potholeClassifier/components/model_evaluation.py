@@ -23,8 +23,8 @@ class Evaluation:
 
         Args:
             config (EvaluationConfig): Configuration object containing evaluation parameters.
-            
-        Returns: 
+
+        Returns:
             None
         """
         self.config = config
@@ -39,7 +39,7 @@ class Evaluation:
         Args:
             None
 
-        Returns: 
+        Returns:
             None
         """
         datagenerator_kwargs = dict(
@@ -52,8 +52,7 @@ class Evaluation:
         )
 
         validation_datagenerator = tf.keras.preprocessing.image.ImageDataGenerator(
-            **datagenerator_kwargs
-        )
+            **datagenerator_kwargs)
 
         self.validation_data = validation_datagenerator.flow_from_directory(
             directory=self.config.training_data,
@@ -75,7 +74,7 @@ class Evaluation:
             tf.keras.Model: Loaded machine learning model.
         """
         return tf.keras.models.load_model(path)
-    
+
     def _save_score(self) -> None:
         """
         Saves the evaluation score to a JSON file.
@@ -83,12 +82,11 @@ class Evaluation:
         Args:
             None
 
-        Returns: 
+        Returns:
             None
         """
         scores = {"loss": self.score[0], "accuracy": self.score[1]}
         save_json(path=Path("scores.json"), data=scores)
-
 
     def evaluation(self) -> None:
         """
@@ -97,7 +95,7 @@ class Evaluation:
         Args:
             None
 
-        Returns: 
+        Returns:
             None
         """
         self.model = self.load_model(self.config.path_of_model)
@@ -105,7 +103,6 @@ class Evaluation:
         self.score = self.model.evaluate(self.validation_data)
         self._save_score()
 
-    
     def log_into_mlflow(self) -> None:
         """
         Logs evaluation metrics and the model into MLflow.
@@ -113,7 +110,7 @@ class Evaluation:
         Args:
             None
 
-        Returns: 
+        Returns:
             None
         """
         mlflow.set_registry_uri(self.config.mlflow_uri)

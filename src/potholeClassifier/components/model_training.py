@@ -29,7 +29,7 @@ class Training:
         Args:
             config (TrainingConfig): The configuration for training the model.
 
-        Returns: 
+        Returns:
             None
         """
         self.config = config
@@ -43,7 +43,7 @@ class Training:
         Args:
             None
 
-        Returns: 
+        Returns:
             None
         """
         self.model = tf.keras.models.load_model(
@@ -60,7 +60,7 @@ class Training:
         Args:
             None
 
-        Returns: 
+        Returns:
             None
         """
 
@@ -109,7 +109,7 @@ class Training:
         Args:
             callback_list (list): A list of callbacks to be used during training.
 
-        Returns: 
+        Returns:
             None
         """
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size

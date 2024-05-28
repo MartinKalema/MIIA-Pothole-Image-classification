@@ -13,7 +13,7 @@ class DataIngestion:
         Args:
             config (DataIngestionConfig): Configuration object for data ingestion.
 
-        Returns: 
+        Returns:
             None
         """
         self.config = config
